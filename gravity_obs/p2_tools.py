@@ -251,13 +251,20 @@ class p2api_GRAVITY(object):
         self.update_content()
         
         
-    def add_GRAVITY_dual_offaxis_acq(self, name, folder_name=None, ft_mode='AUTO', met_mode='ON', picksc='A', 
-                                     ft_name='Name', ft_kmag=0, ft_hmag=0, ft_d=0, ft_vis=1, 
-                                     sc_name='Name', sc_kmag=0, sc_d=0, sc_vis=1, sobj_x=0, sobj_y=0,
-                                     ft_plx=0, spec_res='MED', ft_pol='OUT', sc_pol='OUT', ag_type='ADAPT_OPT', 
-                                     gs_source='FT', gs_alpha='00:00:00.00', gs_delta='00:00:00.00', gs_plx=0, 
-                                     gs_pma=0, gs_pmd=0, gs_epoch=2000, gs_mag=0, baseline=['astrometric'], 
-                                     vltitype=['snapshot']):
+    def add_GRAVITY_dual_offaxis_acq(self, name, folder_name=None, 
+                                    ft_mode='AUTO', met_mode='ON', sc_pick = 'T', 
+                                    sc_name='Name', sc_kmag=0, sc_hmag=0, 
+                                    sc_d=0, sc_plx = 0, sc_vis=1, sobj_x=0, sobj_y=0,
+                                    ft_kmag=0, ft_hmag=0, 
+                                    ft_d=0, ft_vis=1, ft_plx=0,
+                                    spec_res='MED', ft_pol='OUT', sc_pol='OUT', 
+                                    ao_mode='LGS_VIS', ngs_source='FTS', 
+                                    ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
+                                    ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
+                                    lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                    baseline=['astrometric'], 
+                                    vltitype=['snapshot']):
         '''
         Add acquisition template: GRAVITY_dual_acq
 
@@ -346,35 +353,42 @@ class p2api_GRAVITY(object):
             acqTpl, acqTplVersion = api.createTemplate(obid, 'GRAVITY_dual_offaxis_acq')
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
-        
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
-            'SEQ.PICKSC': picksc,
-            'SEQ.FT.ROBJ.NAME': ft_name,
-            'SEQ.FT.ROBJ.MAG': ft_kmag,
-            'SEQ.FT.ROBJ.HMAG': ft_hmag,
-            'SEQ.FT.ROBJ.DIAMETER': ft_d,
-            'SEQ.FT.ROBJ.VIS': ft_vis,
+            'SEQ.PICKSC': sc_pick,
             'SEQ.INS.SOBJ.NAME': sc_name,
-            'SEQ.INS.SOBJ.MAG': sc_kmag,
+            'SEQ.INS.SOBJ.MAG.K': sc_kmag,
+            'SEQ.INS.SOBJ.MAG.H': sc_hmag,
             'SEQ.INS.SOBJ.DIAMETER': sc_d,
             'SEQ.INS.SOBJ.VIS': sc_vis,
             'SEQ.INS.SOBJ.X': sobj_x,
             'SEQ.INS.SOBJ.Y': sobj_y,
             'TEL.TARG.PARALLAX': ft_plx,
+            'TEL.TARG.MAG.K': ft_kmag,
+            'TEL.TARG.MAG.H': ft_hmag,
+            'TEL.TARG.VIS': ft_vis,
+            'TEL.TARG.DIAMETER': ft_d,
             'INS.SPEC.RES': spec_res,
-            'INS.FT.POL': ft_pol,
             'INS.SPEC.POL': sc_pol,
-            'COU.AG.TYPE': ag_type,
-            'COU.AG.GSSOURCE': gs_source,
-            'COU.AG.ALPHA': gs_alpha,
-            'COU.AG.DELTA': gs_delta,
-            'COU.AG.PARALLAX': gs_plx,
-            'COU.AG.PMA': gs_pma,
-            'COU.AG.PMD': gs_pmd,
-            'COU.AG.EPOCH': gs_epoch,
-            'COU.GS.MAG': gs_mag,
+            'COU.AO.TYPE': ao_mode,
+            'COU.NGS.SOURCE': ngs_source,
+            'COU.NGS.ALPHA': ngs_alpha,
+            'COU.NGS.DELTA': ngs_delta,
+            'COU.NGS.PARALLAX': ngs_plx,
+            'COU.NGS.PMA': ngs_pma,
+            'COU.NGS.PMD': ngs_pmd,
+            'COU.NGS.EPOCH': ngs_epoch,
+            'COU.NGS.MAG': ngs_mag,
+            'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.ALPHA': lgs_alpha,
+            'COU.LGS.DELTA': lgs_delta,
+            'COU.LGS.PARALLAX': lgs_plx,
+            'COU.LGS.PMA': lgs_pma,
+            'COU.LGS.PMD': lgs_pmd,
+            'COU.LGS.EPOCH': lgs_epoch,
+            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
@@ -384,12 +398,17 @@ class p2api_GRAVITY(object):
         odict[name] = api.getOB(ob['obId'])
         
 
-    def add_GRAVITY_dual_onaxis_acq(self, name, folder_name=None, ft_mode='AUTO', met_mode='ON', 
-                                    ft_name='Name', ft_kmag=0, ft_hmag=0, ft_d=0, ft_vis=1, 
-                                    sc_name='Name', sc_kmag=0, sc_d=0, sc_vis=1, sobj_x=0, sobj_y=0,
-                                    ft_plx=0, spec_res='MED', ft_pol='OUT', sc_pol='OUT', ag_type='ADAPT_OPT', 
-                                    gs_source='FT', gs_alpha='00:00:00.00', gs_delta='00:00:00.00', gs_plx=0, 
-                                    gs_pma=0, gs_pmd=0, gs_epoch=2000, gs_mag=0, baseline=['astrometric'], 
+    def add_GRAVITY_dual_onaxis_acq(self, name, folder_name=None, 
+                                    ft_mode='AUTO', met_mode='ON', sc_pick = 'F', 
+                                    sc_name='Name', sc_kmag=0, sc_hmag=0, 
+                                    sc_d=0, sc_plx = 0, sc_vis=1, sobj_x=0, sobj_y=0,
+                                    spec_res='MED', ft_pol='OUT', sc_pol='OUT', 
+                                    ao_mode='LGS_VIS', ngs_source='FTS', 
+                                    ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
+                                    ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
+                                    lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                    baseline=['astrometric'], 
                                     vltitype=['snapshot']):
         '''
         Add acquisition template: GRAVITY_dual_acq
@@ -404,6 +423,8 @@ class p2api_GRAVITY(object):
             The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
         met_mode : string
             The metrology mode, 'ON', 'FAINT', or 'OFF'.
+        sc_pick : string
+            Whether to pick the SC source manually, 'T', 'A', or 'F'.
         ft_name : string
             The fringe tracker name.
         ft_kmag : float
@@ -477,34 +498,42 @@ class p2api_GRAVITY(object):
             acqTpl, acqTplVersion = api.createTemplate(obid, 'GRAVITY_dual_onaxis_acq')
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
-        
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
-            'SEQ.FT.ROBJ.NAME': ft_name,
-            'SEQ.FT.ROBJ.MAG': ft_kmag,
-            'SEQ.FT.ROBJ.HMAG': ft_hmag,
-            'SEQ.FT.ROBJ.DIAMETER': ft_d,
-            'SEQ.FT.ROBJ.VIS': ft_vis,
+            'SEQ.PICKSC': sc_pick,
             'SEQ.INS.SOBJ.NAME': sc_name,
-            'SEQ.INS.SOBJ.MAG': sc_kmag,
+            'SEQ.INS.SOBJ.MAG.K': sc_kmag,
+            'SEQ.INS.SOBJ.MAG.H': sc_hmag,
             'SEQ.INS.SOBJ.DIAMETER': sc_d,
             'SEQ.INS.SOBJ.VIS': sc_vis,
             'SEQ.INS.SOBJ.X': sobj_x,
             'SEQ.INS.SOBJ.Y': sobj_y,
-            'TEL.TARG.PARALLAX': ft_plx,
+            'TEL.TARG.PARALLAX': sc_plx,
+            'TEL.TARG.MAG.K': sc_kmag,
+            'TEL.TARG.MAG.H': sc_hmag,
+            'TEL.TARG.VIS': sc_vis,
+            'TEL.TARG.DIAMETER': sc_d,
             'INS.SPEC.RES': spec_res,
-            'INS.FT.POL': ft_pol,
             'INS.SPEC.POL': sc_pol,
-            'COU.AG.TYPE': ag_type,
-            'COU.AG.GSSOURCE': gs_source,
-            'COU.AG.ALPHA': gs_alpha,
-            'COU.AG.DELTA': gs_delta,
-            'COU.AG.PARALLAX': gs_plx,
-            'COU.AG.PMA': gs_pma,
-            'COU.AG.PMD': gs_pmd,
-            'COU.AG.EPOCH': gs_epoch,
-            'COU.GS.MAG': gs_mag,
+            'COU.AO.TYPE': ao_mode,
+            'COU.NGS.SOURCE': ngs_source,
+            'COU.NGS.ALPHA': ngs_alpha,
+            'COU.NGS.DELTA': ngs_delta,
+            'COU.NGS.PARALLAX': ngs_plx,
+            'COU.NGS.PMA': ngs_pma,
+            'COU.NGS.PMD': ngs_pmd,
+            'COU.NGS.EPOCH': ngs_epoch,
+            'COU.NGS.MAG': ngs_mag,
+            'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.ALPHA': lgs_alpha,
+            'COU.LGS.DELTA': lgs_delta,
+            'COU.LGS.PARALLAX': lgs_plx,
+            'COU.LGS.PMA': lgs_pma,
+            'COU.LGS.PMD': lgs_pmd,
+            'COU.LGS.EPOCH': lgs_epoch,
+            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
@@ -813,7 +842,7 @@ class p2api_GRAVITY(object):
             'INS.FT.POL': ft_pol,
             'INS.SPEC.POL': sc_pol,
             'COU.AG.TYPE': ag_type,
-            'COU.AG.GSSOURCE': gs_source,
+            'COU.AG.SOURCE': gs_source,
             'COU.AG.ALPHA': ag_alpha,
             'COU.AG.DELTA': ag_delta,
             'COU.AG.PARALLAX': ag_plx,
@@ -928,7 +957,7 @@ class p2api_GRAVITY(object):
             'INS.SPEC.RES': spec_res,
             'INS.SPEC.POL': sc_pol,
             'COU.AO.TYPE': ao_mode,
-            'COU.NGS.GSSOURCE': ngs_source,
+            'COU.NGS.SOURCE': ngs_source,
             'COU.NGS.ALPHA': ngs_alpha,
             'COU.NGS.DELTA': ngs_delta,
             'COU.NGS.PARALLAX': ngs_plx,
@@ -936,7 +965,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.PMD': ngs_pmd,
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
-            'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.SOURCE': lgs_source,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
@@ -1046,7 +1075,7 @@ class p2api_GRAVITY(object):
             'INS.SPEC.RES': spec_res,
             'INS.SPEC.POL': sc_pol,
             'COU.AO.TYPE': ao_mode,
-            'COU.NGS.GSSOURCE': ngs_source,
+            'COU.NGS.SOURCE': ngs_source,
             'COU.NGS.ALPHA': ngs_alpha,
             'COU.NGS.DELTA': ngs_delta,
             'COU.NGS.PARALLAX': ngs_plx,
@@ -1054,7 +1083,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.PMD': ngs_pmd,
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
-            'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.SOURCE': lgs_source,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
