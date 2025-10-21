@@ -9,6 +9,7 @@ import bisect
 try:
     from astroquery.xmatch import XMatch
     from astroquery.simbad import Simbad
+    from astroquery.gaia import Gaia
 except ImportError:
     XMatch = None
     Simbad = None
