@@ -184,7 +184,7 @@ def ob_add_target(ob, name, ra, dec, pma, pmd):
     ob : dict
         The OB information.
     '''
-    ob['target']['name'] = name
+    ob['target']['name'] = sanitize_name(name)
     ob['target']['ra'] = ra
     ob['target']['dec'] = dec
     ob['target']['properMotionRa'] = np.round(pma * 1e-3, 6)
