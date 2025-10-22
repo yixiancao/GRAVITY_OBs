@@ -386,7 +386,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.PMD': ngs_pmd,
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
-            'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.SOURCE': lgs_source,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
