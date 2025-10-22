@@ -9,6 +9,9 @@ except ImportError:
 now = datetime.now()
 dt_string = now.strftime("%Y-%m-%dT%H:%M:%S")
 
+# sanitizer for names -> replace spaces with underscores
+sanitize_name = lambda s: f"{s}".replace(' ', '_')
+
 all = ['check_item_exist', 'create_OB', 'ob_add_target', 'ob_add_description', 
        'p2api_GRAVITY']
 
@@ -354,6 +357,8 @@ class p2api_GRAVITY(object):
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
 
+        sc_name  = sanitize_name(sc_name)
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
@@ -498,6 +503,8 @@ class p2api_GRAVITY(object):
             acqTpl, acqTplVersion = api.createTemplate(obid, 'GRAVITY_dual_onaxis_acq')
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
+
+        sc_name  = sanitize_name(sc_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -817,7 +824,10 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
         
         pars = acqTpl['parameters']
-        
+
+        sc_name = sanitize_name(sc_name)
+        ft_name = sanitize_name(ft_name)
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
@@ -943,8 +953,8 @@ class p2api_GRAVITY(object):
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
         
-        pars = acqTpl['parameters']
-        
+        sc_name = sanitize_name(sc_name)
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
@@ -1061,8 +1071,8 @@ class p2api_GRAVITY(object):
         except p2api.P2Error as e:
             raise p2api.P2Error(e)
         
-        pars = acqTpl['parameters']
-        
+        sc_name = sanitize_name(sc_name)
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
@@ -1454,5 +1464,5 @@ class p2api_GRAVITY(object):
                         folder['OBs'][it_in_folder['name']] = api.getOB(it_in_folder['obId'])
             else:
                 raise KeyError('Cannot recognize this type ({})!'.format(it['itemType']))
-    
-        
+
+
