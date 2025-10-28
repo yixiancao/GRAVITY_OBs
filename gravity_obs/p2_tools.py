@@ -257,15 +257,15 @@ class p2api_GRAVITY(object):
     def add_GRAVITY_dual_offaxis_acq(self, name, folder_name=None, 
                                     ft_mode='AUTO', met_mode='ON', sc_pick = 'T', 
                                     sc_name='Name', sc_kmag=0, sc_hmag=0, 
-                                    sc_d=0, sc_plx = 0, sc_vis=1, sobj_x=0, sobj_y=0,
-                                    ft_kmag=0, ft_hmag=0, 
+                                    sc_d=0,  sc_vis=1, sobj_x=0, sobj_y=0,
+                                    ft_name='Name', ft_kmag=0, ft_hmag=0, 
                                     ft_d=0, ft_vis=1, ft_plx=0,
-                                    spec_res='MED', ft_pol='OUT', sc_pol='OUT', 
+                                    spec_res='MED',  sc_pol='OUT', 
                                     ao_mode='LGS_VIS', ngs_source='FTS', 
                                     ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                     ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
                                     lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
-                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, 
                                     baseline=['astrometric'], 
                                     vltitype=['snapshot']):
         '''
@@ -278,65 +278,82 @@ class p2api_GRAVITY(object):
         folder_name : string
             The folder name.
         ft_mode : string
-            The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
+            The fringe tracker mode (SEQ.FT.MODE), 'AUTO', 1, 2, 7 or 9.
         met_mode : string
-            The metrology mode, 'ON', 'FAINT', or 'OFF'.
+            The metrology mode (SEQ.MET.MODE), 'ON', 'FAINT', or 'OFF'.
         picksc : string
-            Whether to pick the SC source manually, 'T', 'A', or 'F'.
+            Whether to pick the SC source manually (SEQ.SC.PICK), 'T', 'A', or 'F'.
         ft_name : string
-            The fringe tracker name.
+            The fringe tracker name (TEL.TARG.NAME).
         ft_kmag : float
-            The Ks magnitude of the fringe tracker.
+            The Ks magnitude of the fringe tracker (TEL.TARG.KMAG).
         ft_hmag : float
-            The H magnitude of the fringe tracker.
+            The H magnitude of the fringe tracker (TEL.TARG.HMAG).
         ft_d : float
-            The diameter of the fringe tracker source, in mas.
+            The diameter of the fringe tracker source (TEL.TARG.DIAMETER), in mas.
         ft_vis : float
-            The visibility of the fringe tracker source.
+            The visibility of the fringe tracker source (TEL.TARG.VIS).
         sc_name : string
-            The science object name.
+            The science object name (SEQ.INS.SOBJ.NAME).
         sc_kmag : float
-            The Ks magnitude of the science object.
+            The Ks magnitude of the science object (SEQ.INS.SOBJ.MAG.K).
         sc_d : float
-            The diameter of the science object, in mas.
+            The diameter of the science object (SEQ.INS.SOBJ.DIAMETER), in mas.
         sc_vis : float
-            The visibility of the science object.
+            The visibility of the science object (SEQ.INS.SOBJ.VIS).
         sobj_x : float
-            The x offset of the sc from the ft, in mas.
+            The x offset of the sc from the ft (SEQ.INS.SOBJ.X), in mas.
         sobj_y : float
-            The y offset of the sc from the ft, in mas.
+            The y offset of the sc from the ft (SEQ.INS.SOBJ.Y), in mas.
         ft_plx : float
-            The parallax of the fringe tracker, in arcsec.
+            The parallax of the fringe tracker (TEL.TARG.PARALLAX), in arcsec.
         spec_res : string
-            The spectral resolution, 'LOW', 'MED', or 'HIGH'.
-        ft_pol : string
-            The polarization of the fringe tracker, 'IN' or 'OUT'.
+            The spectral resolution (INS.SPEC.RES), 'LOW', 'MED', or 'HIGH'.
         sc_pol : string
-            The polarization of the science object, 'IN' or 'OUT'.
-        ag_type : string
-            The adaptive optics type, 'ADAPT_OPT', 'ADAPT_OPT_TCCD', or 'IR_AO_OFFAXIS'.
-        gs_source : string
-            The guide star source, 'FT', 'SCIENCE', or 'SETUPFILE'.
-        gs_alpha : string
-            The R.A. of the guide star, in HH:MM:SS.SSS, 
-            only if gs_source is 'SETUPFILE'.
-        gs_delta : string
-            The Decl. of the guide star, in DD:MM:SS.SSS, 
-            only if gs_source is 'SETUPFILE'.
-        gs_plx : float
-            The parallax of the guide star, in arcsec, 
-            only if gs_source is 'SETUPFILE'.
-        gs_pma : float
-            The proper motion of R.A. of the guide star, in arcsec/yr, 
-            only if gs_source is 'SETUPFILE'.
-        gs_pmd : float
-            The proper motion of Decl. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_epoch : float
-            The epoch of the guide star coordinate, in year, better only use 2000.
-        gs_mag : float
-            The magnitude of the guide star in the optical or IR depending on 
-            the ag_type.
+            The polarization of the science object (INS.SPEC.POL), 'IN' or 'OUT'.
+        ao_type : string
+            The adaptive optics type (COU.AO.TYPE), 'NGS_VIS', 'NGS_IR', 'LGS_VIS', 'LGS_IR'.
+        ngs_source : string
+            The guide star source (COU.NGS.SOURCE), 'FTS', 'SCIENCE', or 'SETUPFILE'.
+        ngs_alpha : string
+            The R.A. of the guide star (COU.NGS.ALPHA), in HH:MM:SS.SSS, 
+            only if ngs_source is 'SETUPFILE'.
+        ngs_delta : string
+            The Decl. of the guide star (COU.NGS.DELTA), in DD:MM:SS.SSS, 
+            only if ngs_source is 'SETUPFILE'.
+        ngs_plx : float
+            The parallax of the guide star (COU.NGS.PARALLAX), in arcsec, 
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pma : float
+            The proper motion of R.A. of the guide star (COU.NGS.PMA), in arcsec/yr, 
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pmd : float
+            The proper motion of Decl. of the guide star (COU.NGS.PMD), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_epoch : float
+            The epoch of the guide star coordinate (COU.NGS.EPOCH), in year, better only use 2000.
+        ngs_mag : float
+            The magnitude of the guide star (COU.NGS.MAG) in the optical or IR depending on 
+            the ngs_type.
+        lgs_source : string
+            The laser guide star source (COU.LGS.SOURCE), 'SCIENCE', 'NGS', 'FTS', or 'SETUPFILE'.
+        lgs_alpha : string
+            The R.A. of the laser guide star (COU.LGS.ALPHA), in HH:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_delta : string
+            The Decl. of the laser guide star (COU.LGS.DELTA), in DD:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_plx : float
+            The parallax of the laser guide star (COU.LGS.PARALLAX), in arcsec,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pma : float
+            The proper motion of R.A. of the laser guide star (COU.LGS.PMA), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.      
+        lgs_pmd : float
+            The proper motion of Decl. of the laser guide star (COU.LGS.PMD), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_epoch : float
+            The epoch of the laser guide star coordinate (COU.LGS.EPOCH), in year, better only use 2000..
         baseline : list
             The baseline type, 'small', 'large', or 'UTs'.
         vltitype : list
@@ -370,6 +387,7 @@ class p2api_GRAVITY(object):
             'SEQ.INS.SOBJ.VIS': sc_vis,
             'SEQ.INS.SOBJ.X': sobj_x,
             'SEQ.INS.SOBJ.Y': sobj_y,
+            'TEL.TARG.NAME': ft_name,
             'TEL.TARG.PARALLAX': ft_plx,
             'TEL.TARG.MAG.K': ft_kmag,
             'TEL.TARG.MAG.H': ft_hmag,
@@ -393,7 +411,6 @@ class p2api_GRAVITY(object):
             'COU.LGS.PMA': lgs_pma,
             'COU.LGS.PMD': lgs_pmd,
             'COU.LGS.EPOCH': lgs_epoch,
-            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
@@ -406,14 +423,16 @@ class p2api_GRAVITY(object):
     def add_GRAVITY_dual_onaxis_acq(self, name, folder_name=None, 
                                     ft_mode='AUTO', met_mode='ON', sc_pick = 'F', 
                                     sc_name='Name', sc_kmag=0, sc_hmag=0, 
-                                    sc_d=0, sc_plx = 0, sc_vis=1, sobj_x=0, sobj_y=0,
-                                    ft_kmag=0, ft_hmag=0, ft_d=0, ft_vis=1, ft_plx=0,
+                                    sc_d=0,  sc_vis=1, sobj_x=0, sobj_y=0,
+                                    ft_name='Name',ft_kmag=0, ft_hmag=0, 
+                                    ft_d=0, ft_vis=1, ft_plx=0,
                                     spec_res='MED', sc_pol='OUT', 
                                     ao_mode='LGS_VIS', ngs_source='FTS', 
                                     ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                     ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                    lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
-                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                    lgs_source='SCIENCE', 
+                                    lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                    lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                     baseline=['astrometric'], 
                                     vltitype=['snapshot']):
         '''
@@ -426,65 +445,84 @@ class p2api_GRAVITY(object):
         folder_name : string
             The folder name.
         ft_mode : string
-            The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
+            The fringe tracker mode (COU.FT.MODE), 'AUTO', 1, 2, 7 or 9.
         met_mode : string
-            The metrology mode, 'ON', 'FAINT', or 'OFF'.
+            The metrology mode (COU.MET.MODE)   , 'ON', 'FAINT', or 'OFF'.
         sc_pick : string
-            Whether to pick the SC source manually, 'T', 'A', or 'F'.
+            Whether to pick the SC source manually (SEQ.PICKSC), 'T', 'A', or 'F'.
         ft_name : string
-            The fringe tracker name.
+            The fringe tracker name (TEL.TARG.NAME).
         ft_kmag : float
-            The Ks magnitude of the fringe tracker.
+            The Ks magnitude of the fringe tracker (TEL.TARG.MAG.K).
         ft_hmag : float
-            The H magnitude of the fringe tracker.
+            The H magnitude of the fringe tracker (TEL.TARG.MAG.H).
         ft_d : float
-            The diameter of the fringe tracker source, in mas.
-        ft_vis : float
-            The visibility of the fringe tracker source.
-        sc_name : string
-            The science object name.
-        sc_kmag : float
-            The Ks magnitude of the science object.
-        sc_d : float
-            The diameter of the science object, in mas.
-        sc_vis : float
-            The visibility of the science object.
-        sobj_x : float
-            The x offset of the sc from the ft, in mas.
-        sobj_y : float
-            The y offset of the sc from the ft, in mas.
+            The diameter of the fringe tracker source (TEL.TARG.DIAMETER), in mas.
         ft_plx : float
-            The parallax of the fringe tracker, in arcsec.
+            The parallax of the fringe tracker (TEL.TARG.PARALLAX), in arcsec.
+        ft_vis : float
+            The visibility of the fringe tracker source (TEL.TARG.VIS).
+        sc_name : string
+            The science object name (SEQ.INS.SOBJ.NAME).
+        sc_kmag : float
+            The Ks magnitude of the science object (SEQ.INS.SOBJ.MAG.K).
+        sc_hmag : float
+            The H magnitude of the science object (SEQ.INS.SOBJ.MAG.H).
+        sc_d : float
+            The diameter of the science object (SEQ.INS.SOBJ.DIAMETER), in mas.
+        sc_vis : float
+            The visibility of the science object (SEQ.INS.SOBJ.VIS).
+        sobj_x : float
+            The x offset of the sc from the ft (SEQ.INS.SOBJ.X), in mas.
+        sobj_y : float
+            The y offset of the sc from the ft (SEQ.INS.SOBJ.Y), in mas.
         spec_res : string
-            The spectral resolution, 'LOW', 'MED', or 'HIGH'.
-        ft_pol : string
-            The polarization of the fringe tracker, 'IN' or 'OUT'.
+            The spectral resolution (INS.SPEC.RES), 'LOW', 'MED', or 'HIGH'.
         sc_pol : string
-            The polarization of the science object, 'IN' or 'OUT'.
-        ag_type : string
-            The adaptive optics type, only 'ADAPT_OPT'.
-        gs_source : string
-            The guide star source, 'FT', 'SCIENCE', or 'SETUPFILE'.
-        gs_alpha : string
-            The R.A. of the guide star, in HH:MM:SS.SSS, 
-            only if gs_source is 'SETUPFILE'.
-        gs_delta : string
-            The Decl. of the guide star, in DD:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        gs_plx : float
-            The parallax of the guide star, in arcsec,
-            only if gs_source is 'SETUPFILE'.
-        gs_pma : float
-            The proper motion of R.A. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_pmd : float
-            The proper motion of Decl. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_epoch : float
-            The epoch of the guide star coordinate, in year, better only use 2000.
-        gs_mag : float
-            The magnitude of the guide star in the optical or IR depending on 
-            the ag_type.
+            The polarization of the science object (INS.SPEC.POL), 'IN' or 'OUT'.
+        ao_type : string
+            The adaptive optics type (COU.AO.TYPE), 'ADAPT_OPT', 'ADAPT_OPT_TCCD', or 'IR_AO_OFFAXIS'.
+        ngs_source : string
+            The guide star source (COU.NGS.SOURCE), 'FTS', 'SCIENCE', or 'SETUPFILE'.
+        ngs_alpha : string
+            The R.A. of the guide star (COU.NGS.ALPHA), in HH:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_delta : string
+            The Decl. of the guide star (COU.NGS.DELTA), in DD:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_plx : float
+            The parallax of the guide star (COU.NGS.PARALLAX), in arcsec,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pma : float
+            The proper motion of R.A. of the guide star (COU.NGS.PMA), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pmd : float
+            The proper motion of Decl. of the guide star (COU.NGS.PMD), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_epoch : float
+            The epoch of the guide star coordinate (COU.NGS.EPOCH), in year, better only use 2000.
+        ngs_mag : float
+            The magnitude of the guide star in the optical or IR depending on
+            the ao_type.
+        lgs_source : string
+            The laser guide star source (COU.LGS.SOURCE), 'SCIENCE', 'NGS', 'FTS', or 'SETUPFILE'.
+        lgs_alpha : string
+            The R.A. of the laser guide star (COU.LGS.ALPHA), in HH:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.  
+        lgs_delta : string
+            The Decl. of the laser guide star (COU.LGS.DELTA), in DD:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_plx : float
+            The parallax of the laser guide star (COU.LGS.PARALLAX), in arcsec,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pma : float
+            The proper motion of R.A. of the laser guide star (COU.LGS.PMA), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pmd : float
+            The proper motion of Decl. of the laser guide star (COU.LGS.PMD), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.                  
+        lgs_epoch : float
+            The epoch of the laser guide star coordinate (COU.LGS.EPOCH), in year            
         baseline : list
             The baseline type, 'small', 'large', or 'UTs'.
         vltitype : list
@@ -518,6 +556,7 @@ class p2api_GRAVITY(object):
             'SEQ.INS.SOBJ.VIS': sc_vis,
             'SEQ.INS.SOBJ.X': sobj_x,
             'SEQ.INS.SOBJ.Y': sobj_y,
+            'TEL.TARG.NAME': ft_name,
             'TEL.TARG.PARALLAX': ft_plx,
             'TEL.TARG.MAG.K': ft_kmag,
             'TEL.TARG.MAG.H': ft_hmag,
@@ -541,7 +580,6 @@ class p2api_GRAVITY(object):
             'COU.LGS.PMA': lgs_pma,
             'COU.LGS.PMD': lgs_pmd,
             'COU.LGS.EPOCH': lgs_epoch,
-            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
@@ -729,8 +767,8 @@ class p2api_GRAVITY(object):
                                   ao_mode='LGS_VIS', ngs_source='FTS', 
                                   ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                   ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                  lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
-                                  lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                  lgs_source='FTS', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                  lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                   baseline=['astrometric'], 
                                   vltitype=['snapshot']
                                   ):
@@ -744,73 +782,90 @@ class p2api_GRAVITY(object):
         folder_name : string
             The folder name.
         ft_mode : string
-            The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
+            The fringe tracker mode (SEQ.FT.MODE), 'AUTO', 1, 2, 7 or 9.
         met_mode : string
-            The metrology mode, 'ON', 'FAINT', or 'OFF'.
-        ft_name : string
-            The fringe tracker name.
-        ft_mag : float
-            The Ks magnitude of the fringe tracker.
-        ft_d : float
-            The diameter of the fringe tracker source, in mas.
-        ft_vis : float
-            The visibility of the fringe tracker source.
-        ft_epoch : float
-            The epoch of the FT source coordinate, in year, better only use 2000.
+            The metrology mode (SEQ.MT.MODE), 'ON', 'FAINT', or 'OFF'.
         sc_name : string
-            The science object name.
-        sc_mag : float
-            The Ks magnitude of the science object.
-        sc_d : float
-            The diameter of the science object, in mas.
-        sc_vis : float
-            The visibility of the science object.
+            The science object name (TEL.TARG.NAME).
+        sc_kmag : float
+            The Ks magnitude of the science object (TEL.TARG.MAG.K).
         sc_hmag : float
-            The H magnitude of the science object.
-        ft_hmag : float
-            The H magnitude of the fringe tracker.
-        ft_alpha : string
-            The R.A. of the fringe tracker, in HH:MM:SS.SSS.
-        ft_delta : string
-            The Decl. of the fringe tracker, in DD:MM:SS.SSS.
-        ft_plx : float
-            The parallax of the fringe tracker, in arcsec.
-        ft_pma : float
-            The proper motion of R.A. of the fringe tracker, in arcsec/yr.
-        ft_pmd : float
-            The proper motion of Decl. of the fringe tracker, in arcsec/yr.
+            The H magnitude of the science object (TEL.TARG.MAG.H).
+        sc_d : float
+            The diameter of the science object (TEL.TARG.DIAMETER), in mas.
+        sc_vis : float
+            The visibility of the science object (TEL.TARG.VIS).
         sc_plx : float
-            The parallax of the science object, in arcsec.
+            The parallax of the science object (TEL.TARG.PARALLAX), in arcsec
+        ft_name : string
+            The fringe tracker name (COU.FITS.NAME).
+        ft_kmag : float
+            The Ks magnitude of the fringe tracker (COU.FITS.MAG.K).
+        ft_hmag : float
+            The H magnitude of the fringe tracker (COU.FITS.MAG.H).
+        ft_d : float
+            The diameter of the fringe tracker source (COU.FITS.DIAMETER), in mas.
+        ft_vis : float
+            The visibility of the fringe tracker source (COU.FITS.VIS).
+        ft_epoch : float
+            The epoch of the FT source coordinate (COU.FITS.EPOCH), in year, better only use 2000.
+        ft_alpha : string
+            The R.A. of the fringe tracker (COU.FITS.ALPHA), in HH:MM:SS.SSS.
+        ft_delta : string
+            The Decl. of the fringe tracker (COU.FITS.DELTA), in DD:MM:SS.SSS.
+        ft_plx : float
+            The parallax of the fringe tracker (COU.FITS.PARALLAX), in arcsec.
+        ft_pma : float
+            The proper motion of R.A. of the fringe tracker (COU.FITS.PMA), in arcsec/yr.
+        ft_pmd : float
+            The proper motion of Decl. of the fringe tracker (COU.FITS.PMD), in arcsec/yr.
         spec_res : string
-            The spectral resolution, 'LOW', 'MED', or 'HIGH'.
-        ft_pol : string
-            The polarization of the fringe tracker, 'IN' or 'OUT'.
+            The spectral resolution (INS.SPEC.RES), 'LOW', 'MED', or 'HIGH'.
         sc_pol : string
-            The polarization of the science object, 'IN' or 'OUT'.
-        gs_source : string
-            The guide star source, 'FT', 'SCIENCE', or 'SETUPFILE'.
-        ag_alpha : string
-            The R.A. of the guide star, in HH:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        ag_delta : string
-            The Decl. of the guide star, in DD:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        ag_plx : float
-            The parallax of the guide star, in arcsec,
-            only if gs_source is 'SETUPFILE'.
-        ag_pma : float
-            The proper motion of R.A. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        ag_pmd : float
-            The proper motion of Decl. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        ag_epoch : float
-            The epoch of the guide star coordinate, in year, better only use 2000.
-        gs_mag : float
-            The magnitude of the guide star in the optical or IR depending on 
-            the ag_type.
-        ag_type : string
-            The adaptive optics type, 'ADAPT_OPT', 'ADAPT_OPT_TCCD', or 'IR_AO_OFFAXIS'.
+            The polarization of the science object (INS.SPEC.POL), 'IN' or 'OUT'.
+        ngs_source : string
+            The guide star source (COU.NGS.SOURCE), 'FTS', 'SCIENCE', or 'SETUPFILE'.
+        ngs_alpha : string
+            The R.A. of the guide star (COU.NGS.ALPHA), in HH:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_delta : string
+            The Decl. of the guide star (COU.NGS.DELTA), in DD:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_plx : float
+            The parallax of the guide star (COU.NGS.PARALLAX), in arcsec,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pma : float
+            The proper motion of R.A. of the guide star (COU.NGS.PMA), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pmd : float
+            The proper motion of Decl. of the guide star (COU.NGS.PMD), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_epoch : float
+            The epoch of the guide star coordinate (COU.NGS.EPOCH), in year, better only use 2000.
+        ngs_mag : float
+            The magnitude of the guide star (COU.NGS.MAG) in the optical or IR depending on
+            the ngs_type.
+        ao_type : string
+            The adaptive optics type (COU.AO.TYPE), 'ADAPT_OPT', 'ADAPT_OPT_TCCD', or 'IR_AO_OFFAXIS'.
+        lgs_source : string
+            The laser guide star source (COU.LGS.SOURCE), 'SCIENCE', 'NGS', 'FTS', or 'SETUPFILE'.
+        lgs_alpha : string
+            The R.A. of the laser guide star (COU.LGS.ALPHA), in HH:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE                
+        lgs_delta : string
+            The Decl. of the laser guide star (COU.LGS.DELTA), in DD:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_plx : float
+            The parallax of the laser guide star (COU.LGS.PARALLAX), in arcsec,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pma : float
+            The proper motion of R.A. of the laser guide star (COU.LGS.PMA), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pmd : float
+            The proper motion of Decl. of the laser guide star (COU.LGS.PMD), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.                  
+        lgs_epoch : float
+            The epoch of the laser guide star coordinate (COU.LGS.EPOCH), in year, better only use 2000.  
         baseline : list
             The baseline type, 'small', 'large', or 'UTs'.
         vltitype : list
@@ -839,6 +894,7 @@ class p2api_GRAVITY(object):
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
+            'TEL.TARG.NAME': sc_name,
             'TEL.TARG.PARALLAX': sc_plx,
             'TEL.TARG.MAG.K': sc_kmag,
             'TEL.TARG.MAG.H': sc_hmag,
@@ -873,7 +929,6 @@ class p2api_GRAVITY(object):
             'COU.LGS.PMA': lgs_pma,
             'COU.LGS.PMD': lgs_pmd,
             'COU.LGS.EPOCH': lgs_epoch,
-            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype,
         }
@@ -886,11 +941,11 @@ class p2api_GRAVITY(object):
         
     def add_GRAVITY_single_onaxis_acq(self, name, folder_name=None, ft_mode='AUTO', met_mode='ON', 
                                       sc_name='Name', sc_kmag=0, sc_hmag=0, sc_d=0, sc_vis=1, plx=0, 
-                                      spec_res='MED', ft_pol='OUT', sc_pol='OUT', ao_mode='LGS_VIS', 
+                                      spec_res='MED', sc_pol='OUT', ao_mode='LGS_VIS', 
                                       ngs_source='SCIENCE', ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                       ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
                                       lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
-                                      lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                      lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                       baseline=['astrometric'], vltitype=['snapshot']):
         '''
         Add acquisition template: GRAVITY_single_acq
@@ -902,55 +957,73 @@ class p2api_GRAVITY(object):
         folder_name : string
             The folder name.
         ft_mode : string
-            The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
+            The fringe tracker mode (SEQ.FT.MODE), 'AUTO', 1, 2, 7 or 9. 
         met_mode : string
-            The metrology mode, 'ON', 'FAINT', or 'OFF'.
+            The metrology mode (SEQ.MET.MODE), 'ON', 'FAINT', or 'OFF'.
         sc_name : string
-            The science object name.
+            The science object name (TEL.TARG.NAME).
         sc_kmag : float
-            The Ks magnitude of the science object.
+            The Ks magnitude of the science object (TEL.TARG.MAG.K).
         sc_hmag : float
-            The H magnitude of the science object.
+            The H magnitude of the science object (TEL.TARG.MAG.H).
         sc_d : float
-            The diameter of the science object, in mas.
+            The diameter of the science object, in mas (TEL.TARG.DIAMETER).
         sc_vis : float
-            The visibility of the science object.
+            The visibility of the science object (TEL.TARG.VIS).
         plx : float
-            The parallax of the science object, in arcsec.
+            The parallax of the science object, in arcsec (TEL.TARG.PARALLAX).
         spec_res : string
-            The spectral resolution, 'LOW', 'MED', or 'HIGH'.
-        ft_pol : string
-            The polarization of the fringe tracker, 'IN' or 'OUT'.
+            The spectral resolution (INS.SPEC.RES), 'LOW', 'MED', or 'HIGH'.
         sc_pol : string
-            The polarization of the science object, 'IN' or 'OUT'.
-        ag_type : string
-            The adaptive optics type, 'ADAPT_OPT'.
-        gs_source : string
-            The guide star source, 'FT', 'SCIENCE', or 'SETUPFILE'.
-        gs_alpha : string
-            The R.A. of the guide star, in HH:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        gs_delta : string
-            The Decl. of the guide star, in DD:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        gs_plx : float
-            The parallax of the guide star, in arcsec,
-            only if gs_source is 'SETUPFILE'.
-        gs_pma : float
-            The proper motion of R.A. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_pmd : float
-            The proper motion of Decl. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_epoch : float
-            The epoch of the guide star coordinate, in year, better only use 2000.
-        gs_mag : float
-            The magnitude of the guide star in the optical or IR depending on 
-            the ag_type.
+            The polarization of the science object (INS.SPEC.POL), 'IN' or 'OUT'.
+        ao_mode : string
+            The AO guide star mode (COU.AO.TYPE), 'NGS_VIS', 'NGS_IR', 'LGS_VIS', 'LGS_IR'.
+        ngs_source : string
+            The guide star source (COU.NGS.SOURCE), 'SCIENCE', or 'SETUPFILE'.
+        ngs_alpha : string
+            The R.A. of the guide star (COU.NGS.ALPHA), in HH:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_delta : string
+            The Decl. of the guide star (COU.NGS.DELTA), in DD:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_plx : float
+            The parallax of the guide star (COU.NGS.PARALLAX), in arcsec,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pma : float
+            The proper motion of R.A. of the guide star (COU.NGS.PMA), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pmd : float
+            The proper motion of Decl. of the guide star (COU.NGS.PMD), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_epoch : float
+            The epoch of the guide star coordinate , in year, better only use 2000.
+        ngs_mag : float
+            The magnitude of the guide star in the optical or IR (COU.NGS.MAG) depending on
+            the ao_type.
+        lgs_source : string
+            The LGS source (COU.LGS.SOURCE), 'SCIENCE', 'NGS', 'FTS', or 'SETUPFILE'
+        lgs_alpha : string
+            The R.A. of the LGS (COU.LGS.ALPHA), in HH:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_delta : string
+            The Decl. of the LGS (COU.LGS.DELTA), in DD:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_plx : float
+            The parallax of the LGS (COU.LGS.PARALLAX), in arcsec,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pma : float
+            The proper motion of R.A. of the LGS (COU.LGS.PMA), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pmd : float
+            The proper motion of Decl. of the LGS (COU.LGS.PMD), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_epoch : float
+            The epoch of the LGS coordinate, in year, better only use 2000.
+            only if lgs_source is 'SETUPFILE'.
         baseline : list
-            The baseline type, 'small', 'large', or 'UTs'.
+            The baseline type (ISS.BASELINE), 'small', 'large', or 'UTs'.
         vltitype : list
-            The VLTI type, 'snapshot', 'imaging', 'time-series', or 'astrometry'.
+            The VLTI type (ISS.VLTITYPE), 'snapshot', 'imaging', 'time-series', or 'astrometry'.
         '''
         api = self.api
         folder, folderVersion = self.get_folder(folder_name)
@@ -996,7 +1069,6 @@ class p2api_GRAVITY(object):
             'COU.LGS.PMA': lgs_pma,
             'COU.LGS.PMD': lgs_pmd,
             'COU.LGS.EPOCH': lgs_epoch,
-            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
@@ -1008,11 +1080,11 @@ class p2api_GRAVITY(object):
     
     def add_GRAVITY_single_offaxis_acq(self, name, folder_name=None, ft_mode='AUTO', met_mode='OFF', 
                                       sc_name='Name', sc_kmag=0, sc_hmag=0, sc_d=0, sc_vis=1, plx=0, 
-                                      spec_res='MED', ft_pol='OUT', sc_pol='OUT', ao_mode='LGS_VIS', 
+                                      spec_res='MED', ft_pol='OUT', ao_mode='LGS_VIS', 
                                       ngs_source='SCIENCE', ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                       ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
                                       lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
-                                      lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, lgs_mag=0,
+                                      lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, 
                                       baseline=['astrometric'], vltitype=['snapshot']):
         '''
         Add acquisition template: GRAVITY_single_acq
@@ -1024,47 +1096,67 @@ class p2api_GRAVITY(object):
         folder_name : string
             The folder name.
         ft_mode : string
-            The fringe tracker mode, 'AUTO', 1, 2, 7 or 9.
+            The fringe tracker mode (SEQ.FT.MODE, 'AUTO', 1, 2, 7 or 9.
         met_mode : string
-            The metrology mode, 'ON', 'FAINT', or 'OFF'.
+            The metrology mode (SEQ.MET.MODE), 'ON', 'FAINT', or 'OFF'.
         sc_name : string
-            The science object name.
+            The science object name (TEL.TARG.NAME).
         sc_kmag : float
-            The Ks magnitude of the science object.
+            The Ks magnitude of the science object (TEL.TARG.MAG.K).
         sc_hmag : float
-            The H magnitude of the science object.
+            The H magnitude of the science object (TEL.TARG.MAG.H).
         sc_d : float
-            The diameter of the science object, in mas.
+            The diameter of the science object (TEL.TARG.DIAMETER), in mas.
         sc_vis : float
-            The visibility of the science object.
+            The visibility of the science object (TEL.TARG.VIS).
         plx : float
-            The parallax of the science object, in arcsec.
+            The parallax of the science object (TEL.TARG.PARALLAX) in arcsec.
         ft_pol : string
-            The polarization of the fringe tracker, 'IN' or 'OUT'.
-        ag_type : string
-            The adaptive optics type, 'ADAPT_OPT'.
-        gs_source : string
-            The guide star source, 'FT', 'SCIENCE', or 'SETUPFILE'.
-        gs_alpha : string
-            The R.A. of the guide star, in HH:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        gs_delta : string
-            The Decl. of the guide star, in DD:MM:SS.SSS,
-            only if gs_source is 'SETUPFILE'.
-        gs_plx : float
-            The parallax of the guide star, in arcsec,
-            only if gs_source is 'SETUPFILE'.
-        gs_pma : float
-            The proper motion of R.A. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_pmd : float
-            The proper motion of Decl. of the guide star, in arcsec/yr,
-            only if gs_source is 'SETUPFILE'.
-        gs_epoch : float
-            The epoch of the guide star coordinate, in year, better only use 2000.
-        gs_mag : float
-            The magnitude of the guide star in the optical or IR depending on 
-            the ag_type.
+            The polarization of the fringe tracker (INS.FT.POL), 'IN' or 'OUT'.
+        ao_type : string
+            The adaptive optics type (COU.AO.TYPE), 'NGS_VIS', 'NGS_IR', 'LGS_VIS', 'LGS_IR'.
+        ngs_source : string
+            The guide star source (COU.NGS.SOURCE), 'SCIENCE', or 'SETUPFILE'.
+        ngs_alpha : string
+            The R.A. of the guide star (COU.NGS.ALPHA), in HH:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_delta : string
+            The Decl. of the guide star (COU.NGS.DELTA), in DD:MM:SS.SSS,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_plx : float
+            The parallax of the guide star (COU.NGS.PARALLAX), in arcsec,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pma : float
+            The proper motion of R.A. of the guide star (COU.NGS.PMA), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_pmd : float
+            The proper motion of Decl. of the guide star (COU.NGS.PMD), in arcsec/yr,
+            only if ngs_source is 'SETUPFILE'.
+        ngs_epoch : float
+            The epoch of the guide star coordinate (COU.NGS.EPOCH), in year, better only use 2000.
+        ngs_mag : float
+            The magnitude of the guide star in the optical or IR depending on
+            the ao_type.
+        lgs_source : string
+            The LGS source (COU.LGS.SOURCE), 'SCIENCE', 'NGS', 'FTS', or 'SETUPFILE'
+        lgs_alpha : string 
+            The R.A. of the LGS (COU.LGS.ALPHA), in HH:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_delta : string
+            The Decl. of the LGS (COU.LGS.DELTA), in DD:MM:SS.SSS,
+            only if lgs_source is 'SETUPFILE'. 
+        lgs_plx : float
+            The parallax of the LGS (COU.LGS.PARALLAX), in arcsec,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pma : float
+            The proper motion of R.A. of the LGS (COU.LGS.PMA), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_pmd : float
+            The proper motion of Decl. of the LGS (COU.LGS.PMD), in arcsec/yr,
+            only if lgs_source is 'SETUPFILE'.
+        lgs_epoch : float
+            The epoch of the LGS coordinate (COU.LGS.EPOCH), in year, better only use 2000.
+            only if lgs_source is 'SETUPFILE'.
         baseline : list
             The baseline type, 'small', 'large', or 'UTs'.
         vltitype : list
@@ -1097,7 +1189,7 @@ class p2api_GRAVITY(object):
             'TEL.TARG.VIS': sc_vis,
             'TEL.TARG.PARALLAX': plx,
             'INS.SPEC.RES': spec_res,
-            'INS.SPEC.POL': sc_pol,
+            'INS.FT.POL': ft_pol,
             'COU.AO.TYPE': ao_mode,
             'COU.NGS.SOURCE': ngs_source,
             'COU.NGS.ALPHA': ngs_alpha,
@@ -1114,7 +1206,6 @@ class p2api_GRAVITY(object):
             'COU.LGS.PMA': lgs_pma,
             'COU.LGS.PMD': lgs_pmd,
             'COU.LGS.EPOCH': lgs_epoch,
-            'COU.LGS.MAG': lgs_mag,
             'ISS.BASELINE': baseline,
             'ISS.VLTITYPE': vltitype
         }
