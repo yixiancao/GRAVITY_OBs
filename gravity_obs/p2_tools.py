@@ -763,7 +763,7 @@ class p2api_GRAVITY(object):
                                   ft_name='Name',  ft_epoch=2000,
                                   ft_alpha=None, ft_delta=None, ft_plx=0, ft_pma=0, ft_pmd=0, 
                                   ft_kmag=0, ft_hmag=0, ft_d=0, ft_vis=1, 
-                                  spec_res='MED', sc_pol='IN', 
+                                  spec_res='MED', sc_pol='OUT', 
                                   ao_mode='LGS_VIS', ngs_source='FTS', 
                                   ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                   ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
