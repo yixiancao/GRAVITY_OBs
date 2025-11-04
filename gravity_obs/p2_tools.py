@@ -375,6 +375,7 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
 
         sc_name  = sanitize_name(sc_name)
+        ngs_name = sanitize_name(ngs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -545,6 +546,7 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
 
         sc_name  = sanitize_name(sc_name)
+        ngs_name = sanitize_name(ngs_name) 
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -892,6 +894,7 @@ class p2api_GRAVITY(object):
 
         sc_name = sanitize_name(sc_name)
         ft_name = sanitize_name(ft_name)
+        ngs_name = sanitize_name(ngs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -1045,6 +1048,7 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
         
         sc_name = sanitize_name(sc_name)
+        ngs_name = sanitize_name(ngs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -1184,7 +1188,8 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
         
         sc_name = sanitize_name(sc_name)
-
+        ngs_name = sanitize_name(ngs_name)  
+        
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
