@@ -915,8 +915,9 @@ def search_simbad(name):
     ra_hms, dec_dms = get_coord_colon(c)
     return ra_hms, dec_dms, pma, pmd
     
+get_ndit = lambda dit: int(min(420 / dit // 4 * 4, 320))
 
-def get_dit(k, res='med', pol='split', tel='UT', wide=False):
+def get_dit(k, res='med', pol='split', tel='UT', wide=False, dualoff=False):
     '''
     Get the optimal DIT for a given target magnitude.
 
@@ -939,18 +940,19 @@ def get_dit(k, res='med', pol='split', tel='UT', wide=False):
         The optimal DIT.
     '''
     opt_med = {
-        1: 5.5,
-        3: 7.0,
-        10: 8.0,
-        30: 11,
+        0.3: 5.5,
+        1: 7.0,
+        3: 8.5,
+        10: 10.5,
+        30: 12,
     }
     
     opt_low = {
-        0.3: 7.5,
-        1: 9.0,
-        3: 10.5,
-        10: 11.5,
-        30: 15.0,
+        0.3: 10.0,
+        1: 12.0,
+        3: 14.0,
+        10: 15.5,
+        30: 17.5,
     }
 
     if res == 'med':
@@ -958,26 +960,26 @@ def get_dit(k, res='med', pol='split', tel='UT', wide=False):
         k_bright_limit = 4
     elif res == 'low':
         opt_dict = opt_low
-        k_bright_limit = 7
+        k_bright_limit = 9
     else:
         raise ValueError('The res should be either med or low!')
 
     if pol == 'split':
         pass
     elif pol == 'combined':
-        k = k - 0.8
+        k = k - 0.5
     else:
         raise ValueError('The pol should be either split or combined!')
     
     if tel == 'UT':
         pass
     elif tel == 'AT':
-        k = k + 2.5
+        k = k - 3.0
     else:
         raise ValueError('The tel should be either UT or AT!')
     
-    if wide:
-        k = k + 1
+    if wide or dualoff:
+        k = k + 0.7
     
     if k < k_bright_limit:
         raise ValueError(f'The target is too bright for {res}, {pol}, {tel}!')
@@ -991,6 +993,6 @@ def get_dit(k, res='med', pol='split', tel='UT', wide=False):
         idx -= 1
 
     if dit[idx] == 0.3:
-        return 0.3
+        return 0.3, get_ndit(0.3)
     else:
-        return int(dit[idx])
+        return int(dit[idx]), get_ndit(int(dit[idx]))
