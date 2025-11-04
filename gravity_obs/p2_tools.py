@@ -264,7 +264,8 @@ class p2api_GRAVITY(object):
                                     ao_mode='LGS_VIS', ngs_source='FTS', ngs_name='Name',
                                     ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                     ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                    lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                    lgs_source='SCIENCE', lgs_name='Name',
+                                    lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
                                     lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, 
                                     baseline=['astrometric'], 
                                     vltitype=['snapshot']):
@@ -376,6 +377,7 @@ class p2api_GRAVITY(object):
 
         sc_name  = sanitize_name(sc_name)
         ngs_name = sanitize_name(ngs_name)
+        lgs_name = sanitize_name(lgs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -407,6 +409,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
             'COU.LGS.SOURCE': lgs_source,
+            'COU.LGS.NAME': lgs_name,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
@@ -432,7 +435,7 @@ class p2api_GRAVITY(object):
                                     ao_mode='LGS_VIS', ngs_source='FTS', ngs_name='Name',
                                     ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                     ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                    lgs_source='SCIENCE', 
+                                    lgs_source='SCIENCE', lgs_name='Name',
                                     lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
                                     lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                     baseline=['astrometric'], 
@@ -546,7 +549,8 @@ class p2api_GRAVITY(object):
             raise p2api.P2Error(e)
 
         sc_name  = sanitize_name(sc_name)
-        ngs_name = sanitize_name(ngs_name) 
+        ngs_name = sanitize_name(ngs_name)
+        lgs_name = sanitize_name(lgs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -578,6 +582,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
             'COU.LGS.GSSOURCE': lgs_source,
+            'COU.LGS.NAME': lgs_name,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
@@ -771,7 +776,8 @@ class p2api_GRAVITY(object):
                                   ao_mode='LGS_VIS', ngs_source='FTS', ngs_name='Name',
                                   ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                   ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                  lgs_source='FTS', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                  lgs_source='FTS', lgs_name='Name',
+                                  lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
                                   lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                   baseline=['astrometric'], 
                                   vltitype=['snapshot']
@@ -895,6 +901,7 @@ class p2api_GRAVITY(object):
         sc_name = sanitize_name(sc_name)
         ft_name = sanitize_name(ft_name)
         ngs_name = sanitize_name(ngs_name)
+        lgs_name = sanitize_name(lgs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -929,6 +936,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
             'COU.LGS.SOURCE': lgs_source,
+            'COU.LGS.NAME': lgs_name,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
@@ -951,7 +959,8 @@ class p2api_GRAVITY(object):
                                       ngs_source='SCIENCE', ngs_name='Name',
                                       ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                       ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                      lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                      lgs_source='SCIENCE', lgs_name='Name',
+                                      lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
                                       lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000,
                                       baseline=['astrometric'], vltitype=['snapshot']):
         '''
@@ -1049,6 +1058,7 @@ class p2api_GRAVITY(object):
         
         sc_name = sanitize_name(sc_name)
         ngs_name = sanitize_name(ngs_name)
+        lgs_name = sanitize_name(lgs_name)
 
         pdict = {
             'SEQ.FT.MODE': ft_mode,
@@ -1072,6 +1082,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
             'COU.LGS.SOURCE': lgs_source,
+            'COU.LGS.NAME': lgs_name,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
@@ -1093,7 +1104,8 @@ class p2api_GRAVITY(object):
                                       ngs_source='SCIENCE', ngs_name='Name',
                                       ngs_alpha='00:00:00.000', ngs_delta='00:00:00.000', 
                                       ngs_plx=0, ngs_pma=0, ngs_pmd=0, ngs_epoch=2000, ngs_mag=0, 
-                                      lgs_source='SCIENCE', lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
+                                      lgs_source='SCIENCE', lgs_name='Name',
+                                      lgs_alpha='00:00:00.000', lgs_delta='00:00:00.000', 
                                       lgs_plx=0, lgs_pma=0, lgs_pmd=0, lgs_epoch=2000, 
                                       baseline=['astrometric'], vltitype=['snapshot']):
         '''
@@ -1189,7 +1201,8 @@ class p2api_GRAVITY(object):
         
         sc_name = sanitize_name(sc_name)
         ngs_name = sanitize_name(ngs_name)  
-        
+        lgs_name = sanitize_name(lgs_name)
+
         pdict = {
             'SEQ.FT.MODE': ft_mode,
             'SEQ.MET.MODE': met_mode,
@@ -1212,6 +1225,7 @@ class p2api_GRAVITY(object):
             'COU.NGS.EPOCH': ngs_epoch,
             'COU.NGS.MAG': ngs_mag,
             'COU.LGS.SOURCE': lgs_source,
+            'COU.LGS.NAME': lgs_name,
             'COU.LGS.ALPHA': lgs_alpha,
             'COU.LGS.DELTA': lgs_delta,
             'COU.LGS.PARALLAX': lgs_plx,
