@@ -967,14 +967,14 @@ def get_dit(k, res='med', pol='split', tel='UT', wide=False, dualoff=False):
     if pol == 'split':
         pass
     elif pol == 'combined':
-        k = k - 0.5
+        k = k - 0.8
     else:
         raise ValueError('The pol should be either split or combined!')
     
     if tel == 'UT':
         pass
     elif tel == 'AT':
-        k = k - 3.0
+        k = k + 3.0
     else:
         raise ValueError('The tel should be either UT or AT!')
     
