@@ -163,3 +163,4 @@ cython_debug/
 demo/results/*
 .DS_Store
 *.tar.gz
+workbooks.tar.gz
